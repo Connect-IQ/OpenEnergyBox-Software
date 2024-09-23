@@ -1,0 +1,68 @@
+version: '3.8'
+services:
+  # Node.js app with Vue.js frontend
+  app:
+    build:
+      context: .
+    container_name: node-vue-app
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./backend:/usr/src/app/backend
+      - ./frontend:/usr/src/app/frontend
+    devices:
+      - "/dev/ttyAMA4:/dev/ttyAMA4" # Add this line to give access to the serial device
+    environment:
+      - NODE_ENV=production
+    depends_on:
+      - influxdb
+    restart: always
+    privileged: true
+
+  # InfluxDB for storing time-series data
+  influxdb:
+    image: influxdb:1.8
+    container_name: influxdb
+    ports:
+      - "8086:8086"
+    volumes:
+      - influxdb-storage:/var/lib/influxdb
+    restart: always
+    environment:
+      - INFLUXDB_DB=targetxdb
+      - INFLUXDB_ADMIN_USER=targetxdbuser
+      - INFLUXDB_ADMIN_PASSWORD=targetxdbpassword
+
+  # Grafana for visualizing InfluxDB data
+  grafana:
+    image: grafana/grafana
+    container_name: grafana
+    ports:
+      - "3001:3000"
+    depends_on:
+      - influxdb
+    volumes:
+      - grafana-storage:/var/lib/grafana
+    environment:
+      - GF_SECURITY_ADMIN_USER=admin
+      - GF_SECURITY_ADMIN_PASSWORD=adminpassword
+    restart: always
+
+  # Nginx as reverse proxy for frontend and backend
+  nginx:
+    image: nginx:alpine
+    container_name: nginx
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+    depends_on:
+      - app
+    restart: always
+
+# Named volumes for persistent storage (root level, not under 'services')
+volumes:
+  influxdb-storage:
+    driver: local
+  grafana-storage:
+    driver: local
