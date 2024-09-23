@@ -1,0 +1,12 @@
+{
+  "modbusPort": "/dev/ttyAMA4",
+  "baudRate": 9600,
+  "modbusRegistersToRead": 100,
+  "modbusSlaveId": 1,
+  "influxdb": {
+    "url": "http://localhost:8086",
+    "username": "targetxdbuser",
+    "password": "targetxdbpassword",
+    "database": "targetxdb"
+  }
+}
