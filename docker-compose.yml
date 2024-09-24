@@ -43,8 +43,8 @@ services:
     depends_on:
       - influxdb
     volumes:
-      - ./grafana-storage:/var/lib/grafana
-      - ./grafana/dashboards:/var/lib/grafana/dashboards
+      - ./grafana-storage:/var/lib/grafana                        # Grafana data storage
+      - ./grafana/dashboards:/var/lib/grafana/dashboards          # Mount dashboards
       - ./grafana/provisioning:/etc/grafana/provisioning
     environment:
       - GF_SECURITY_ADMIN_USER=admin
