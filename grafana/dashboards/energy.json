@@ -25,7 +25,7 @@
       "datasource": {
         "default": true,
         "type": "influxdb",
-        "uid": "edyso02ccs0zkd"
+        "uid": "InfluxDB"
       },
       "fieldConfig": {
         "defaults": {
@@ -113,7 +113,7 @@
           "alias": "Voltage 1",
           "datasource": {
             "type": "influxdb",
-            "uid": "edyso02ccs0zkd"
+            "uid": "InfluxDB"
           },
           "groupBy": [
             {
@@ -154,7 +154,7 @@
           "alias": "Voltage 2",
           "datasource": {
             "type": "influxdb",
-            "uid": "edyso02ccs0zkd"
+            "uid": "InfluxDB"
           },
           "groupBy": [
             {
@@ -196,7 +196,7 @@
           "alias": "Voltage 3",
           "datasource": {
             "type": "influxdb",
-            "uid": "edyso02ccs0zkd"
+            "uid": "InfluxDB"
           },
           "groupBy": [
             {
@@ -242,7 +242,7 @@
       "datasource": {
         "default": true,
         "type": "influxdb",
-        "uid": "edyso02ccs0zkd"
+        "uid": "InfluxDB"
       },
       "fieldConfig": {
         "defaults": {
@@ -325,7 +325,7 @@
           "alias": "I1",
           "datasource": {
             "type": "influxdb",
-            "uid": "edyso02ccs0zkd"
+            "uid": "InfluxDB"
           },
           "groupBy": [
             {
@@ -366,7 +366,7 @@
           "alias": "I2",
           "datasource": {
             "type": "influxdb",
-            "uid": "edyso02ccs0zkd"
+            "uid": "InfluxDB"
           },
           "groupBy": [
             {
@@ -408,7 +408,7 @@
           "alias": "I3",
           "datasource": {
             "type": "influxdb",
-            "uid": "edyso02ccs0zkd"
+            "uid": "InfluxDB"
           },
           "groupBy": [
             {
@@ -454,7 +454,7 @@
       "datasource": {
         "default": true,
         "type": "influxdb",
-        "uid": "edyso02ccs0zkd"
+        "uid": "InfluxDB"
       },
       "fieldConfig": {
         "defaults": {
@@ -537,7 +537,7 @@
           "alias": "PF 1",
           "datasource": {
             "type": "influxdb",
-            "uid": "edyso02ccs0zkd"
+            "uid": "InfluxDB"
           },
           "groupBy": [
             {
@@ -578,7 +578,7 @@
           "alias": "PF 2",
           "datasource": {
             "type": "influxdb",
-            "uid": "edyso02ccs0zkd"
+            "uid": "InfluxDB"
           },
           "groupBy": [
             {
@@ -620,7 +620,7 @@
           "alias": "PF 3",
           "datasource": {
             "type": "influxdb",
-            "uid": "edyso02ccs0zkd"
+            "uid": "InfluxDB"
           },
           "groupBy": [
             {
@@ -666,7 +666,7 @@
       "datasource": {
         "default": true,
         "type": "influxdb",
-        "uid": "edyso02ccs0zkd"
+        "uid": "InfluxDB"
       },
       "fieldConfig": {
         "defaults": {
@@ -750,7 +750,7 @@
           "alias": "Frequency",
           "datasource": {
             "type": "influxdb",
-            "uid": "edyso02ccs0zkd"
+            "uid": "InfluxDB"
           },
           "groupBy": [
             {
@@ -795,7 +795,7 @@
       "datasource": {
         "default": true,
         "type": "influxdb",
-        "uid": "edyso02ccs0zkd"
+        "uid": "InfluxDB"
       },
       "fieldConfig": {
         "defaults": {
@@ -878,7 +878,7 @@
           "alias": "Active power",
           "datasource": {
             "type": "influxdb",
-            "uid": "edyso02ccs0zkd"
+            "uid": "InfluxDB"
           },
           "groupBy": [
             {
@@ -923,7 +923,7 @@
           "alias": "Reactive power",
           "datasource": {
             "type": "influxdb",
-            "uid": "edyso02ccs0zkd"
+            "uid": "InfluxDB"
           },
           "groupBy": [
             {
