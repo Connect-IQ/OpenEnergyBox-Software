@@ -1,6 +1,10 @@
 const {InfluxDB, Point} = require('@influxdata/influxdb-client');
 const ModbusRTU = require("modbus-serial");
 const config = require('./config/config.json');
+const mqtt = require('mqtt');
+const fs = require('fs');
+const path = require('path');
+
 
 // Create a Modbus client instance
 const client = new ModbusRTU();
@@ -290,11 +294,63 @@ function writeToInflux(firstSet, secondSet, thirdSet) {
             console.error('Error writing data to InfluxDB', error);
         });
     console.log("Metrics written to InfluxDB");
+
+    // Publish machine data to MQTT brokers
+    const topic = `data/${machineName}/energy`;
+    const message = JSON.stringify(point);
+    sendToMqtts(
+        process.env.MQTT_BROKER_URL_LOCAL,
+        {
+            url: process.env.MQTT_BROKER_URL_REMOTE,
+            username: process.env.MQTT_BROKER_URL_REMOTE_USER,
+            password: process.env.MQTT_BROKER_URL_REMOTE_PASSWORD,
+        },
+        topic,
+        message
+    );
+
 }
 
 // Function to start the continuous metric collection
 function startModbusMetricsCollection() {
     collectModbusMetrics();
+}
+
+async function sendToMqtts(localBroker, remoteBroker, topic, message) {
+    // Connect to the local MQTT broker
+    const localClient = mqtt.connect(localBroker);
+
+    // Connect to the remote MQTT broker with authentication
+    const remoteClient = mqtt.connect(remoteBroker.url, {
+        username: remoteBroker.username,
+        password: remoteBroker.password,
+    });
+
+    // Send messages when connected
+    localClient.on('connect', () => {
+        console.log('Connected to local MQTT broker');
+        localClient.publish(topic, message, { qos: 1 }, (err) => {
+            if (err) console.error('Error publishing to local broker:', err);
+            localClient.end();
+        });
+    });
+
+    remoteClient.on('connect', () => {
+        console.log('Connected to remote MQTT broker');
+        remoteClient.publish(topic, message, { qos: 1 }, (err) => {
+            if (err) console.error('Error publishing to remote broker:', err);
+            remoteClient.end();
+        });
+    });
+
+    // Handle errors
+    localClient.on('error', (err) => {
+        console.error('Local MQTT client error:', err);
+    });
+
+    remoteClient.on('error', (err) => {
+        console.error('Remote MQTT client error:', err);
+    });
 }
 
 module.exports = {

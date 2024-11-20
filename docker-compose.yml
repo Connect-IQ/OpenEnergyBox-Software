@@ -14,8 +14,13 @@ services:
       - "/dev/ttyAMA4:/dev/ttyAMA4" # Add this line to give access to the serial device
     environment:
       - NODE_ENV=production
+      - MQTT_BROKER_URL_LOCAL=mqtt://mosquitto:1883
+      - MQTT_BROKER_URL_REMOTE=mqtt://wbc5a5b1.ala.eu-central-1.emqxsl.com:8883
+      - MQTT_BROKER_URL_REMOTE_USER=connectiq
+      - MQTT_BROKER_URL_REMOTE_PASSWORD=connectiq
     depends_on:
       - influxdb
+      - mosquitto
     restart: always
     privileged: true
 
@@ -63,6 +68,18 @@ services:
       - app
     restart: always
 
+
+  mosquitto:
+    image: eclipse-mosquitto
+    container_name: mosquitto
+    ports:
+      - "1883:1883"  # MQTT port
+      - "9001:9001"  # WebSocket port
+    volumes:
+      - ./mosquitto/config:/mosquitto/config
+      - ./mosquitto/data:/mosquitto/data
+      - ./mosquitto/log:/mosquitto/log
+    restart: always
 # Named volumes for persistent storage (root level, not under 'services')
 volumes:
   influxdb-storage:
