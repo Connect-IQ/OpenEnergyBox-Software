@@ -6,7 +6,7 @@ const path = require('path');
 const { InfluxDB } = require('@influxdata/influxdb-client');
 const config = require('./config/config.json');
 const {startModbusMetricsCollection} = require("./modbusCollector.js");
-
+const {loginAndScrape} = require("./controllers/scraperController.js");
 // Create a Fastify instance
 const fastify = Fastify({ logger: true });
 
@@ -32,6 +32,7 @@ fastify.register(require('@fastify/static'), {
 });
 
 startModbusMetricsCollection(influxDB);
+
 
 // Start the Fastify server
 const PORT = process.env.PORT || 3000;

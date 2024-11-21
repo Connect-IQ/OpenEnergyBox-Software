@@ -4,6 +4,7 @@ const config = require('./config/config.json');
 const mqtt = require('mqtt');
 const fs = require('fs');
 const path = require('path');
+const {loginAndScrape} = require("./controllers/scraperController.js");
 
 
 // Create a Modbus client instance
@@ -86,32 +87,32 @@ async function readFirstSet() {
         const totalPower = readModbusFloat(data.buffer, 104);    // Offset 32 (30053–30054)
         const totalVoltAmps = readModbusFloat(data.buffer, 112);    // Offset 32 (30057–30058)
 
-        console.log(`Voltage 1: ${voltage1} V`);
-        console.log(`Voltage 2: ${voltage2} V`);
-        console.log(`Voltage 3: ${voltage3} V`);
-        console.log(`Current 1: ${current1} A`);
-        console.log(`Current 2: ${current2} A`);
-        console.log(`Current 3: ${current3} A`);
-        console.log(`Power 1: ${power1} W`);
-        console.log(`Power 2: ${power2} W`);
-        console.log(`Power 3: ${power3} W`);
-        console.log(`Volt-Amps 1: ${voltAmps1} VA`);
-        console.log(`Volt-Amps 2: ${voltAmps2} VA`);
-        console.log(`Volt-Amps 3: ${voltAmps3} VA`);
-        console.log(`Reactive Power 1: ${reactivePower1} VAR`);
-        console.log(`Reactive Power 2: ${reactivePower2} VAR`);
-        console.log(`Reactive Power 3: ${reactivePower3} VAR`);
-        console.log(`Power Factor 1: ${powerFactor1}`);
-        console.log(`Power Factor 2: ${powerFactor2}`);
-        console.log(`Power Factor 3: ${powerFactor3}`);
-        console.log(`Phase Angle 1: ${phaseAngle1}`);
-        console.log(`Phase Angle 2: ${phaseAngle2}`);
-        console.log(`Phase Angle 3: ${phaseAngle3}`);
-        console.log(`Average to Neutral: ${avgToNeutral}`);
-        console.log(`Average Line Current: ${avgLineCurrent}`);
-        console.log(`Sum of Currents: ${sumOfCurrents}`);
-        console.log(`Total Power: ${totalPower}`);
-        console.log(`Total Volt-Amps: ${totalVoltAmps}`);
+        // console.log(`Voltage 1: ${voltage1} V`);
+        // console.log(`Voltage 2: ${voltage2} V`);
+        // console.log(`Voltage 3: ${voltage3} V`);
+        // console.log(`Current 1: ${current1} A`);
+        // console.log(`Current 2: ${current2} A`);
+        // console.log(`Current 3: ${current3} A`);
+        // console.log(`Power 1: ${power1} W`);
+        // console.log(`Power 2: ${power2} W`);
+        // console.log(`Power 3: ${power3} W`);
+        // console.log(`Volt-Amps 1: ${voltAmps1} VA`);
+        // console.log(`Volt-Amps 2: ${voltAmps2} VA`);
+        // console.log(`Volt-Amps 3: ${voltAmps3} VA`);
+        // console.log(`Reactive Power 1: ${reactivePower1} VAR`);
+        // console.log(`Reactive Power 2: ${reactivePower2} VAR`);
+        // console.log(`Reactive Power 3: ${reactivePower3} VAR`);
+        // console.log(`Power Factor 1: ${powerFactor1}`);
+        // console.log(`Power Factor 2: ${powerFactor2}`);
+        // console.log(`Power Factor 3: ${powerFactor3}`);
+        // console.log(`Phase Angle 1: ${phaseAngle1}`);
+        // console.log(`Phase Angle 2: ${phaseAngle2}`);
+        // console.log(`Phase Angle 3: ${phaseAngle3}`);
+        // console.log(`Average to Neutral: ${avgToNeutral}`);
+        // console.log(`Average Line Current: ${avgLineCurrent}`);
+        // console.log(`Sum of Currents: ${sumOfCurrents}`);
+        // console.log(`Total Power: ${totalPower}`);
+        // console.log(`Total Volt-Amps: ${totalVoltAmps}`);
 
         return {
             voltage1: voltage1,
@@ -187,25 +188,25 @@ async function readThirdSet() {
         const l2ExportKvarh = readModbusFloat(data.buffer, 60);     // Offset 4 (30373–30074)
         const l3ExportKvarh = readModbusFloat(data.buffer, 64);     // Offset 4 (30375–30076)
 
-        console.log(`Total kWh: ${totalKwh} kWh`);
-        console.log(`Total kvarh: ${totalKvarh} kvarh`);
-        console.log(`L1 Import kWh: ${l1ImportKwh} kWh`);
-        console.log(`L2 Import kWh: ${l2ImportKwh} kWh`);
-        console.log(`L3 Import kWh: ${l3ImportKwh} kWh`);
-        console.log(`L1 Export kWh: ${l1ExportKwh} kWh`);
-        console.log(`L2 Export kWh: ${l2ExportKwh} kWh`);
-        console.log(`L3 Export kWh: ${l3ExportKwh} kWh`);
-
-        console.log(`L1 Total kWh: ${l1TotalKwh} kWh`);
-        console.log(`L2 Total kWh: ${l2TotalKwh} kWh`);
-
-        console.log(`L3 Total kWh: ${l3TotalKwh} kWh`);
-        console.log(`L1 Import kvarh: ${l1ImportKvarh} kvarh`);
-        console.log(`L2 Import kvarh: ${l2ImportKvarh} kvarh`);
-        console.log(`L3 Import kvarh: ${l3ImportKvarh} kvarh`);
-        console.log(`L1 Export kvarh: ${l1ExportKvarh} kvarh`);
-        console.log(`L2 Export kvarh: ${l2ExportKvarh} kvarh`);
-        console.log(`L3 Export kvarh: ${l3ExportKvarh} kvarh`);
+        // console.log(`Total kWh: ${totalKwh} kWh`);
+        // console.log(`Total kvarh: ${totalKvarh} kvarh`);
+        // console.log(`L1 Import kWh: ${l1ImportKwh} kWh`);
+        // console.log(`L2 Import kWh: ${l2ImportKwh} kWh`);
+        // console.log(`L3 Import kWh: ${l3ImportKwh} kWh`);
+        // console.log(`L1 Export kWh: ${l1ExportKwh} kWh`);
+        // console.log(`L2 Export kWh: ${l2ExportKwh} kWh`);
+        // console.log(`L3 Export kWh: ${l3ExportKwh} kWh`);
+        //
+        // console.log(`L1 Total kWh: ${l1TotalKwh} kWh`);
+        // console.log(`L2 Total kWh: ${l2TotalKwh} kWh`);
+        //
+        // console.log(`L3 Total kWh: ${l3TotalKwh} kWh`);
+        // console.log(`L1 Import kvarh: ${l1ImportKvarh} kvarh`);
+        // console.log(`L2 Import kvarh: ${l2ImportKvarh} kvarh`);
+        // console.log(`L3 Import kvarh: ${l3ImportKvarh} kvarh`);
+        // console.log(`L1 Export kvarh: ${l1ExportKvarh} kvarh`);
+        // console.log(`L2 Export kvarh: ${l2ExportKvarh} kvarh`);
+        // console.log(`L3 Export kvarh: ${l3ExportKvarh} kvarh`);
 
         return {
             totalKwh: totalKwh,
@@ -233,7 +234,7 @@ async function readThirdSet() {
     }
 }
 
-function writeToInflux(firstSet, secondSet, thirdSet) {
+function writeToInflux(firstSet, secondSet, thirdSet, machineName) {
     const point = new Point('energy')
         .floatField('voltage1', firstSet.voltage1)
         .floatField('voltage2', firstSet.voltage2)
@@ -282,22 +283,74 @@ function writeToInflux(firstSet, secondSet, thirdSet) {
         .floatField('l3ExportKvarh', thirdSet.l3ExportKvarh)
         .timestamp(new Date());
 
+
+    let pointJSON = {
+        "measurement": "energy",
+        "fields": {
+            "voltage1": firstSet.voltage1,
+            "voltage2": firstSet.voltage2,
+            "voltage3": firstSet.voltage3,
+            "current1": firstSet.current1,
+            "current2": firstSet.current2,
+            "current3": firstSet.current3,
+            "power1": firstSet.power1,
+            "power2": firstSet.power2,
+            "power3": firstSet.power3,
+            "voltAmps1": firstSet.voltAmps1,
+            "voltAmps2": firstSet.voltAmps2,
+            "voltAmps3": firstSet.voltAmps3,
+            "reactivePower1": firstSet.reactivePower1,
+            "reactivePower2": firstSet.reactivePower2,
+            "reactivePower3": firstSet.reactivePower3,
+            "powerFactor1": firstSet.powerFactor1,
+            "powerFactor2": firstSet.powerFactor2,
+            "powerFactor3": firstSet.powerFactor3,
+            "phaseAngle1": firstSet.phaseAngle1,
+            "phaseAngle2": firstSet.phaseAngle2,
+            "phaseAngle3": firstSet.phaseAngle3,
+            "avgToNeutral": firstSet.avgToNeutral,
+            "avgLineCurrent": firstSet.avgLineCurrent,
+            "sumOfCurrents": firstSet.sumOfCurrents,
+            "totalPower": firstSet.totalPower,
+            "totalVoltAmps": firstSet.totalVoltAmps,
+            "frequency": secondSet.frequency,
+            "importKwh": secondSet.importKwh,
+            "totalKwh": thirdSet.totalKwh,
+            "totalKvarh": thirdSet.totalKvarh,
+            "l1ImportKwh": thirdSet.l1ImportKwh,
+            "l2ImportKwh": thirdSet.l2ImportKwh,
+            "l3ImportKwh": thirdSet.l3ImportKwh,
+            "l1ExportKwh": thirdSet.l1ExportKwh,
+            "l2ExportKwh": thirdSet.l2ExportKwh,
+            "l3ExportKwh": thirdSet.l3ExportKwh,
+            "l1TotalKwh": thirdSet.l1TotalKwh,
+            "l2TotalKwh": thirdSet.l2TotalKwh,
+            "l3TotalKwh": thirdSet.l3TotalKwh,
+            "l1ImportKvarh": thirdSet.l1ImportKvarh,
+            "l2ImportKvarh": thirdSet.l2ImportKvarh,
+            "l3ImportKvarh": thirdSet.l3ImportKvarh,
+            "l1ExportKvarh": thirdSet.l1ExportKvarh,
+            "l2ExportKvarh": thirdSet.l2ExportKvarh,
+            "l3ExportKvarh": thirdSet.l3ExportKvarh
+        },
+        "timestamp": new Date().toISOString()
+    };
     writeApi.writePoint(point);
 
 // Flush the writes and close the connection
-    writeApi
-        .close()
-        .then(() => {
-            console.log('Write completed');
-        })
-        .catch((error) => {
-            console.error('Error writing data to InfluxDB', error);
-        });
+
+    // writeApi
+    //     .then(() => {
+    //         console.log('Write completed');
+    //     })
+    //     .catch((error) => {
+    //         console.error('Error writing data to InfluxDB', error);
+    //     });
     console.log("Metrics written to InfluxDB");
 
     // Publish machine data to MQTT brokers
-    const topic = `data/${machineName}/energy`;
-    const message = JSON.stringify(point);
+    const topic = `data/${process.env.MACHINE_NAME}/energy`;
+    const message = JSON.stringify(pointJSON);
     sendToMqtts(
         process.env.MQTT_BROKER_URL_LOCAL,
         {
@@ -307,7 +360,21 @@ function writeToInflux(firstSet, secondSet, thirdSet) {
         },
         topic,
         message
-    );
+    ).then(r => console.log("Data sent to MQTT brokers"));
+
+    const loginUrl = 'https://api.pars-connect.com/livedata#';
+    const username = 'malpak2';
+    const password = '123456';
+    loginAndScrape(loginUrl, username, password).then(r => {
+        const topic2 = `data/${process.env.MACHINE_NAME}/scraper`;
+        const message2 = JSON.stringify(r);
+        sendToMqtts(process.env.MQTT_BROKER_URL_LOCAL,
+            {
+                url: process.env.MQTT_BROKER_URL_REMOTE,
+                username: process.env.MQTT_BROKER_URL_REMOTE_USER,
+                password: process.env.MQTT_BROKER_URL_REMOTE_PASSWORD,
+            }, topic2, message2).then(r => console.log("Scraper Data sent to MQTT brokers"));
+    }).catch(e => console.log(e))
 
 }
 
@@ -317,6 +384,8 @@ function startModbusMetricsCollection() {
 }
 
 async function sendToMqtts(localBroker, remoteBroker, topic, message) {
+
+    console.log("Sending data to MQTT brokers");
     // Connect to the local MQTT broker
     const localClient = mqtt.connect(localBroker);
 
@@ -324,6 +393,7 @@ async function sendToMqtts(localBroker, remoteBroker, topic, message) {
     const remoteClient = mqtt.connect(remoteBroker.url, {
         username: remoteBroker.username,
         password: remoteBroker.password,
+        protocol: 'mqtts'
     });
 
     // Send messages when connected

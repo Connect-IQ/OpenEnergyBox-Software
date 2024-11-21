@@ -4,6 +4,7 @@ FROM node:18-alpine as build-stage
 # Set the working directory for the frontend build
 WORKDIR /usr/src/app
 
+
 # Install global Vite
 RUN npm install -g vite
 
@@ -25,7 +26,7 @@ WORKDIR /usr/src/app
 
 # Add the node user to the dialout group to access serial devices
 RUN apk add --no-cache shadow && usermod -aG dialout node
-
+RUN apk add chromium
 # Copy package.json and package-lock.json first for installing dependencies
 COPY backend/package*.json ./
 
